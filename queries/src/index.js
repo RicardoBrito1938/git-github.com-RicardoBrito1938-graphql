@@ -6,6 +6,13 @@ const server = new ApolloServer({
       hello: String
     }
   `,
+  resolvers: {
+    Query: {
+      hello: () => {
+        return 'Hello again';
+      },
+    },
+  },
 });
 
 server.listen(4000).then(({ url }) => {
