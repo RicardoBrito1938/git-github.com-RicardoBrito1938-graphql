@@ -1,21 +1,8 @@
-const user = () => {
-  return {
-    id: '1',
-    userName: 'Ricardo',
-  };
-};
+const users = async (_, __, { getUsers }) =>
+  await getUsers().then((users) => users.json());
 
-const users = () => {
-  return [
-    {
-      id: '1',
-      userName: 'Ricardo',
-    },
-    {
-      id: '2',
-      userName: 'Brito',
-    },
-  ];
+const user = async (_, { id }, { getUsers }) => {
+  return await getUsers(`/${id}`).then((user) => user.json());
 };
 
 export const userResolvers = {

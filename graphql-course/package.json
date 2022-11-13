@@ -5,12 +5,15 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^3.10.3",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "node-fetch": "^3.3.0"
   },
   "scripts": {
-    "dev": "nodemon -r sucrase/register src/index.js"
+    "dev": "nodemon -r sucrase/register src/index.js",
+    "server": "json-server --watch db.json"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.42.0",
     "eslint": "^8.0.1",
