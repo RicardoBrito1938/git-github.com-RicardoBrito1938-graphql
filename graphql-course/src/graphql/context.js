@@ -1,5 +1,4 @@
-import fetch from 'node-fetch';
-
+import fetch from 'node-fetch2';
 const API_URL = 'http://localhost:3000';
 
 export const context = () => {
