@@ -6,6 +6,7 @@ const post = async (_, { id }, { getPosts }) => {
     return {
       statusCode: 404,
       message: 'Post not found!',
+      postId: id,
     };
   }
 
@@ -30,8 +31,16 @@ export const postResolvers = {
   },
   PostResult: {
     __resolveType: (obj) => {
-      if (typeof obj.statusCode !== 'undefined') return 'PostNotFoundError';
+      if (typeof obj.postId !== 'undefined') return 'PostNotFoundError';
+      if (typeof obj.timeout !== 'undefined') return 'PostTimeoutError';
       if (typeof obj.id !== 'undefined') return 'Post';
+      return null;
+    },
+  },
+  PostError: {
+    __resolveType: (obj) => {
+      if (typeof obj.postId !== 'undefined') return 'PostNotFoundError';
+      if (typeof obj.timeout !== 'undefined') return 'PostTimeoutError';
       return null;
     },
   },

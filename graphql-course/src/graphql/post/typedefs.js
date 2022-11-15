@@ -8,9 +8,21 @@ export const postTypeDefs = gql`
 
   union PostResult = PostNotFoundError | Post
 
-  type PostNotFoundError {
+  interface PostError {
     statusCode: Int!
     message: String!
+  }
+
+  type PostNotFoundError implements PostError {
+    statusCode: Int!
+    message: String!
+    postId: String!
+  }
+
+  type PostTimeoutError implements PostError {
+    statusCode: Int!
+    message: String!
+    timeout: Int!
   }
 
   type Post {
