@@ -10,9 +10,8 @@ const posts = async (_, { input }, { getPosts }) => {
   return await getPosts(`/?${apiFilterTypeDefs}`).then((posts) => posts.json());
 };
 
-const user = async ({ userId }, __, { getUsers }) => {
-  const response = await getUsers(`/${userId}`);
-  return response.json();
+const user = async ({ userId }, __, { userDataloader }) => {
+  return userDataloader.load(userId);
 };
 
 export const postResolvers = {
