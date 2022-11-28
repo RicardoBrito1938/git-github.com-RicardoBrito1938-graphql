@@ -8,8 +8,8 @@ const users = async (_, { input }, { getUsers }) => {
   return await getUsers(`/?${apiFilterTypeDefs}`).then((users) => users.json());
 };
 
-const posts = ({ id }, _, { postDataloader }) => {
-  return postDataloader.load(id);
+const posts = ({ id }, _, { dataSources }) => {
+  return dataSources.postApi.dataloader.load(id);
 };
 
 export const userResolvers = {
