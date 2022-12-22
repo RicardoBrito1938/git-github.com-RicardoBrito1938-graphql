@@ -9,7 +9,7 @@ const users = async (_, { input }, { getUsers }) => {
 };
 
 const posts = ({ id }, _, { dataSources }) => {
-  return dataSources.postApi.dataloader.load(id);
+  return dataSources.postApi.batchLoadByUserId(id);
 };
 
 export const userResolvers = {

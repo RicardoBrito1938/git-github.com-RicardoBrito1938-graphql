@@ -26,6 +26,6 @@ export class PostApi extends RESTDataSource {
   }
 
   batchLoadByUserId(id) {
-    this.dataloader.load(id);
+    return this.dataloader.load(id);
   }
 }
