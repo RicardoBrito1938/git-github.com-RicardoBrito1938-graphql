@@ -1,11 +1,11 @@
-const user = async (_, { id }, { getUsers }) => {
-  return await getUsers(`/${id}`).then((user) => user.json());
+const users = async (_, { input }, { dataSources }) => {
+  const users = await dataSources.userApi.getUsers(input);
+  return users;
 };
 
-const users = async (_, { input }, { getUsers }) => {
-  const apiFilterTypeDefs = new URLSearchParams(input);
-
-  return await getUsers(`/?${apiFilterTypeDefs}`).then((users) => users.json());
+const user = async (_, { id }, { dataSources }) => {
+  const user = await dataSources.userApi.getUser(id);
+  return user;
 };
 
 const posts = ({ id }, _, { dataSources }) => {
@@ -13,11 +13,6 @@ const posts = ({ id }, _, { dataSources }) => {
 };
 
 export const userResolvers = {
-  Query: {
-    user,
-    users,
-  },
-  User: {
-    posts,
-  },
+  Query: { user, users },
+  User: { posts },
 };
