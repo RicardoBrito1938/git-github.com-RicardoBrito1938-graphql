@@ -14,6 +14,14 @@ const createPost = async (_, { data }, { dataSources }) => {
   return dataSources.postApi.createPost(data);
 };
 
+const updatePost = async (_, { postId, data }, { dataSources }) => {
+  return dataSources.postApi.updatePost(postId, data);
+};
+
+const deletePost = async (_, { postId }, { dataSources }) => {
+  return dataSources.postApi.deletePost(postId);
+};
+
 // Field resolvers
 const user = async ({ userId }, _, { dataSources }) => {
   return dataSources.userApi.batchLoadById(userId);
@@ -26,6 +34,8 @@ export const postResolvers = {
   },
   Mutation: {
     createPost,
+    updatePost,
+    deletePost,
   },
   Post: {
     user,

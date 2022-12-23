@@ -1,7 +1,11 @@
 /* eslint-disable space-before-function-paren */
 import { RESTDataSource } from 'apollo-datasource-rest';
 import { makePostDataloader } from './dataloaders';
-import { createPostFn } from './utils/post-repository';
+import {
+  createPostFn,
+  deletePostFn,
+  updatePostFn,
+} from './utils/post-repository';
 
 export class PostApi extends RESTDataSource {
   constructor() {
@@ -28,6 +32,14 @@ export class PostApi extends RESTDataSource {
 
   async createPost(postData) {
     return await createPostFn(postData, this);
+  }
+
+  async updatePost(postId, postData) {
+    return await updatePostFn(postId, postData, this);
+  }
+
+  async deletePost(postId) {
+    return await deletePostFn(postId, this);
   }
 
   batchLoadByUserId(id) {
