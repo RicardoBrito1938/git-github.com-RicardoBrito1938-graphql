@@ -21,7 +21,7 @@ export class UsersApi extends RESTDataSource {
   }
 
   async createUser(data) {
-    createUserFn(data, this);
+    return createUserFn(data, this);
   }
 
   async updateUser(userId, data) {

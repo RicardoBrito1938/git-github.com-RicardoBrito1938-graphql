@@ -9,7 +9,7 @@ const user = async (_, { id }, { dataSources }) => {
   return user;
 };
 
-// Mutation resolvers
+// Mutation Resolvers
 const createUser = async (_, { data }, { dataSources }) => {
   return dataSources.userApi.createUser(data);
 };
@@ -22,17 +22,13 @@ const deleteUser = async (_, { userId }, { dataSources }) => {
   return dataSources.userApi.deleteUser(userId);
 };
 
-// Posts
+// Field Resolvers
 const posts = ({ id }, _, { dataSources }) => {
-  return dataSources.userApi.batchLoadByUserId(id);
+  return dataSources.postApi.batchLoadByUserId(id);
 };
 
 export const userResolvers = {
   Query: { user, users },
-  Mutation: {
-    createUser,
-    updateUser,
-    deleteUser,
-  },
+  Mutation: { createUser, updateUser, deleteUser },
   User: { posts },
 };
