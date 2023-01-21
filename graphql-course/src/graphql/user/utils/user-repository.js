@@ -1,5 +1,5 @@
-import { ValidationError } from 'apollo-server-errors';
 import bcrypt from 'bcrypt';
+import { UserInputError, ValidationError } from 'apollo-server-errors';
 
 export const createUserFn = async (userData, dataSource) => {
   await checkUserFields(userData, true);
@@ -67,11 +67,12 @@ const validateUserName = (userName) => {
 };
 
 const validateUserPassword = (password) => {
-  const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d]).{6,30}$/;
+  const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,30}$/;
 
   if (!password.match(strongPasswordRegex)) {
-    throw new ValidationError(
-      `userName must contain at least one lowercase letter, one uppercase letter and number ${strongPasswordRegex}`,
+    throw new UserInputError(
+      'Password must contain at least: ' +
+        'One lower case letter, one upper case letter and one number.',
     );
   }
 };
@@ -97,12 +98,12 @@ const checkUserFields = async (user, allFieldsRequired = false) => {
     if (!user[field]) {
       throw new Error(`Missing ${field}`);
     }
+  }
 
-    if (user.password && !user.passwordHash) {
-      const { password } = user;
-      const passwordHash = await bcrypt.hash(password, 12);
-      user.passwordHash = passwordHash;
-      delete user.password;
-    }
+  if (user.password && !user.passwordHash) {
+    const { password } = user;
+    const passwordHash = await bcrypt.hash(password, 12);
+    user.passwordHash = passwordHash;
+    delete user.password;
   }
 };

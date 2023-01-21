@@ -159,6 +159,24 @@
       "userName": "marcia_carvalho81",
       "indexRef": 1,
       "createdAt": "2016-12-08T00:49:39.870Z"
+    },
+    {
+      "firstName": "Ricardo",
+      "lastName": "Brito 5",
+      "userName": "Ricardo-Brito-2",
+      "passwordHash": "$2b$12$vNSRR0D0XgOB9kTpzxGhN.4gABjhvNMUDkG2H8bhb0JcsamjsA.ne",
+      "indexRef": 21,
+      "createdAt": "2023-01-21T10:25:26.165Z",
+      "id": "9A7pbY2"
+    },
+    {
+      "firstName": "Ricardo",
+      "lastName": "Brito 5",
+      "userName": "Ricardo-Brito",
+      "passwordHash": "$2b$12$XQ9m6bHCuK/jkIyRUSou/O1I3af0stz2KoyUKhLZ.6hwwtLKyCFMi",
+      "indexRef": 22,
+      "createdAt": "2023-01-21T10:25:35.571Z",
+      "id": "CVkkJag"
     }
   ],
   "posts": [
