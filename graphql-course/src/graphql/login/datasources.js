@@ -1,8 +1,8 @@
 /* eslint-disable space-before-function-paren */
-import { RESTDataSource } from 'apollo-datasource-rest';
-import { AuthenticationError } from 'apollo-server';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { RESTDataSource } from 'apollo-datasource-rest';
+import { AuthenticationError } from 'apollo-server-errors';
 
 export class LoginApi extends RESTDataSource {
   constructor() {
@@ -15,14 +15,17 @@ export class LoginApi extends RESTDataSource {
     const found = !!user.length;
 
     if (!found) {
-      throw new AuthenticationError('User not found');
+      throw new AuthenticationError('User does not exist.');
     }
 
     const { passwordHash, id: userId } = user[0];
-    const isPasswordValid = this.checkUserPassword(password, passwordHash);
+    const isPasswordValid = await this.checkUserPassword(
+      password,
+      passwordHash,
+    );
 
     if (!isPasswordValid) {
-      throw new AuthenticationError('Invalid password');
+      throw new AuthenticationError('Invalid password.');
     }
 
     const token = this.createJwtToken({ userId });
@@ -35,11 +38,11 @@ export class LoginApi extends RESTDataSource {
   }
 
   checkUserPassword(password, passwordHash) {
-    return bcrypt.compareSync(password, passwordHash);
+    return bcrypt.compare(password, passwordHash);
   }
 
-  createJwtToken(payload, userId) {
-    return jwt.sign(payload, `${process.env.JWT_SECRET}`, {
+  createJwtToken(payload) {
+    return jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: '7d',
     });
   }
