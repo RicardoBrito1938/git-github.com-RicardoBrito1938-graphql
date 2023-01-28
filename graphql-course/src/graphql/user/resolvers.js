@@ -1,3 +1,5 @@
+import { checkOwner } from './utils/auth-functions';
+
 // Query resolvers
 const users = async (_, { input }, { dataSources }) => {
   const users = await dataSources.userApi.getUsers(input);
@@ -19,13 +21,14 @@ const updateUser = async (
   { userId, data },
   { dataSources, loggedUserId },
 ) => {
-  if (!loggedUserId) throw new Error('You must be logged in to update a user');
-  if (loggedUserId !== userId) throw new Error('You can not update this user');
+  checkOwner(loggedUserId, userId);
 
   return dataSources.userApi.updateUser(userId, data);
 };
 
-const deleteUser = async (_, { userId }, { dataSources }) => {
+const deleteUser = async (_, { userId }, { dataSources, loggedUserId }) => {
+  checkOwner(loggedUserId, userId);
+
   return dataSources.userApi.deleteUser(userId);
 };
 
