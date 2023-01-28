@@ -194,7 +194,8 @@
       "passwordHash": "$2b$12$VyDRomO4bF2KUnT7JCLzyOEWO6wnke26aXr5OcyWnv8/5dr3UDsme",
       "indexRef": 24,
       "createdAt": "2023-01-28T09:43:33.857Z",
-      "id": "vFvBjbM"
+      "id": "vFvBjbM",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ2RnZCamJNIiwiaWF0IjoxNjc0OTAyMTMwLCJleHAiOjE2NzU1MDY5MzB9.B5gfz6YWyHRVMSzHX1qq1Wuf0-GNl4_6Kz1TQLWWluE"
     },
     {
       "firstName": "Ricardo",
@@ -204,6 +205,15 @@
       "indexRef": 25,
       "createdAt": "2023-01-28T09:44:23.213Z",
       "id": "1x-uAFa"
+    },
+    {
+      "firstName": "Ricardo",
+      "lastName": "Brito",
+      "userName": "Brit5",
+      "passwordHash": "$2b$12$ItFl1SbN7QWNwD.wOZRaP.wn688gWBkMnDtC7L3cxfNy6aLUgiFNm",
+      "indexRef": 26,
+      "createdAt": "2023-01-28T10:30:58.027Z",
+      "id": "lYRajMg"
     }
   ],
   "posts": [
