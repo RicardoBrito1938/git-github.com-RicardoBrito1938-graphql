@@ -14,7 +14,14 @@ const createUser = async (_, { data }, { dataSources }) => {
   return dataSources.userApi.createUser(data);
 };
 
-const updateUser = async (_, { userId, data }, { dataSources }) => {
+const updateUser = async (
+  _,
+  { userId, data },
+  { dataSources, loggedUserId },
+) => {
+  if (!loggedUserId) throw new Error('You must be logged in to update a user');
+  if (loggedUserId !== userId) throw new Error('You can not update this user');
+
   return dataSources.userApi.updateUser(userId, data);
 };
 
