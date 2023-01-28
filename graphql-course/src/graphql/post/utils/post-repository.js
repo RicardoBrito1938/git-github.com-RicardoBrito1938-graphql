@@ -1,4 +1,4 @@
-import { ValidationError } from 'apollo-server';
+import { ValidationError, FetchError } from 'apollo-server';
 
 export const createPostFn = async (postData, dataSource) => {
   const postInfo = await createPostInfo(postData, dataSource);
@@ -23,7 +23,20 @@ export const updatePostFn = async (postId, postData, dataSource) => {
     throw new ValidationError('Missing postId');
   }
 
-  const { title, body, userId } = postData;
+  const foundPost = await dataSource.get(postId, undefined, {
+    cacheOptions: {
+      ttl: 0,
+    },
+  });
+
+  if (!foundPost) throw new FetchError('Post not found');
+
+  if (foundPost.userId !== dataSource.context.loggedUserId) {
+    throw new ValidationError('You can not change the userId of a post');
+  }
+
+  const { userId } = foundPost;
+  const { title, body } = postData;
 
   if (typeof title !== 'undefined') {
     if (!title) {
