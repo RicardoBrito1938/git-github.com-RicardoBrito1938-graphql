@@ -1,5 +1,21 @@
 import { ValidationError, FetchError } from 'apollo-server';
 
+export const findPostOwner = async (dataSource, postId) => {
+  const foundPost = await dataSource.get(postId, undefined, {
+    cacheOptions: {
+      ttl: 0,
+    },
+  });
+
+  if (!foundPost) throw new FetchError('Post not found');
+
+  if (foundPost.userId !== dataSource.context.loggedUserId) {
+    throw new ValidationError('You can not change the userId of a post');
+  }
+
+  return foundPost;
+};
+
 export const createPostFn = async (postData, dataSource) => {
   const postInfo = await createPostInfo(postData, dataSource);
   const { title, body, userId } = postInfo;
@@ -12,6 +28,7 @@ export const createPostFn = async (postData, dataSource) => {
 
 export const deletePostFn = async (postId, dataSource) => {
   if (!postId) throw new ValidationError('Missing postId');
+  await findPostOwner(dataSource, postId);
 
   const deleted = await dataSource.delete(postId);
 
@@ -23,17 +40,7 @@ export const updatePostFn = async (postId, postData, dataSource) => {
     throw new ValidationError('Missing postId');
   }
 
-  const foundPost = await dataSource.get(postId, undefined, {
-    cacheOptions: {
-      ttl: 0,
-    },
-  });
-
-  if (!foundPost) throw new FetchError('Post not found');
-
-  if (foundPost.userId !== dataSource.context.loggedUserId) {
-    throw new ValidationError('You can not change the userId of a post');
-  }
+  const foundPost = await findPostOwner(dataSource, postId);
 
   const { userId } = foundPost;
   const { title, body } = postData;
