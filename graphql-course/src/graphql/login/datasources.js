@@ -10,15 +10,22 @@ export class LoginApi extends RESTDataSource {
     this.baseURL = `${process.env.API_URL}/users/`;
   }
 
-  async login(userName, password) {
+  async getUser(userName) {
     const user = await this.get('', { userName }, { cacheOptions: { ttl: 0 } });
+
     const found = !!user.length;
 
     if (!found) {
       throw new AuthenticationError('User does not exist.');
     }
 
-    const { passwordHash, id: userId } = user[0];
+    return user[0];
+  }
+
+  async login(userName, password) {
+    const user = await this.getUser(userName);
+
+    const { passwordHash, id: userId } = user;
     const isPasswordValid = await this.checkUserPassword(
       password,
       passwordHash,
@@ -35,6 +42,18 @@ export class LoginApi extends RESTDataSource {
       userId,
       token,
     };
+  }
+
+  async logout(userName) {
+    const user = await this.getUser(userName);
+
+    if (user.id !== this.context.loggedUserId) {
+      throw new AuthenticationError('You can not logout this user');
+    }
+
+    await this.patch(user.id, { token: '' }, { cacheOptions: { ttl: 0 } });
+
+    return true;
   }
 
   checkUserPassword(password, passwordHash) {

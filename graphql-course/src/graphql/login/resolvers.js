@@ -4,8 +4,13 @@ export const login = async (_, { data }, { dataSources }) => {
   return user;
 };
 
+export const logout = async (_, { userName }, { dataSources }) => {
+  return dataSources.loginApi.logout(userName);
+};
+
 export const loginResolvers = {
   Mutation: {
     login,
+    logout,
   },
 };
