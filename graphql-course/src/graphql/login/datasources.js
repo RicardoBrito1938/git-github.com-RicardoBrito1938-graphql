@@ -39,11 +39,11 @@ export class LoginApi extends RESTDataSource {
     await this.patch(userId, { token }, { cacheOptions: { ttl: 0 } });
 
     this.context.res.cookie('jwtToken', token, {
-      secure: false, // process.env.NODE_ENV === 'production', // only set cookies over https
+      secure: true, // process.env.NODE_ENV === 'production', // only set cookies over https
       httpOnly: true, // prevents client side JS from reading the cookie
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       path: '/',
-      sameSite: 'strict', // CSRF
+      sameSite: 'none', // CSRF
     });
 
     return {
@@ -60,6 +60,7 @@ export class LoginApi extends RESTDataSource {
     }
 
     await this.patch(user.id, { token: '' }, { cacheOptions: { ttl: 0 } });
+    this.context.res.clearCookie('jwtToken');
 
     return true;
   }
