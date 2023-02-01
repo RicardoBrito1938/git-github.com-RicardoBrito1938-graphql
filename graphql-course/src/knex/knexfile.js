@@ -9,9 +9,10 @@ module.exports = {
   development: {
     client: process.env.DATABASE_CLIENT,
     connection: {
-      user: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
+      host: process.env.DATABASE_HOST,
     },
     pool: {
       min: 2,
@@ -20,17 +21,15 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations',
       directory: resolve(__dirname, 'migrations'),
-    },
-    seeds: {
-      directory: resolve(__dirname, 'seeds'),
     },
   },
   production: {
     client: process.env.DATABASE_CLIENT,
     connection: {
-      user: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
+      host: process.env.DATABASE_HOST,
     },
     pool: {
       min: 2,
@@ -39,9 +38,6 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations',
       directory: resolve(__dirname, 'migrations'),
-    },
-    seeds: {
-      directory: resolve(__dirname, 'seeds'),
     },
   },
 };
