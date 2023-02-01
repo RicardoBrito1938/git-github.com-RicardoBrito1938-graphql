@@ -43,6 +43,8 @@ const authorizeUserWithBearerToken = async (req) => {
   const { headers } = req;
   const { authorization } = headers;
 
+  if (authorization === undefined) return '';
+
   try {
     const [_bearer, token] = authorization.split(' ');
     const userId = await verifyJwtToken(token);
@@ -59,6 +61,7 @@ export const context = async ({ req, res }) => {
   if (!loggedUserId) {
     if (req.headers.cookie) {
       const { jwtToken } = cookieParser(req.headers.cookie);
+
       loggedUserId = await verifyJwtToken(jwtToken);
     }
   }
