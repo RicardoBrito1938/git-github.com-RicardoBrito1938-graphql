@@ -195,7 +195,7 @@
       "indexRef": 24,
       "createdAt": "2023-01-28T09:43:33.857Z",
       "id": "vFvBjbM",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ2RnZCamJNIiwiaWF0IjoxNjc1NTg5NDM2LCJleHAiOjE2NzYxOTQyMzZ9.BTOw7sn4Cyb30CiE7veURohEgRD-v4rx_JA-w76upBc"
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ2RnZCamJNIiwiaWF0IjoxNjc1NTkxNTgyLCJleHAiOjE2NzYxOTYzODJ9.QR59UkbAXLnufV5V1oaX5yNjkV59eNdm-VkvV8KbgJg"
     },
     {
       "firstName": "Ricardo",
@@ -214,6 +214,16 @@
       "indexRef": 26,
       "createdAt": "2023-01-28T10:30:58.027Z",
       "id": "lYRajMg"
+    },
+    {
+      "firstName": "Ricardo",
+      "lastName": "Brito",
+      "userName": "Brit6",
+      "passwordHash": "$2b$12$2wywL2YPUeElm4hwrEG1O.Mf7KzwhbkDZh0oN4kJKD/.QBznYFj7W",
+      "indexRef": 27,
+      "createdAt": "2023-02-05T10:06:49.518Z",
+      "id": "-_PZKEy",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiItX1BaS0V5IiwiaWF0IjoxNjc1NTkxOTY0LCJleHAiOjE2NzYxOTY3NjR9.QCKciXmb0LAB5YuAM2_IxqqqCDfavW33H4_op-wtcIc"
     }
   ],
   "posts": [

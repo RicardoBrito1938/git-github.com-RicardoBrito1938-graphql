@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { UsersApi } from './user/datasources';
+import { UsersApi } from '../schema/user/datasources';
 
 const cookieParser = (cookiesHeader) => {
   // The final goal is to return an object with key/value reflecting
