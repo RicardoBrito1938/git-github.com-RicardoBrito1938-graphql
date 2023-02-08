@@ -1,12 +1,14 @@
 /* eslint-disable space-before-function-paren */
 import { SQLDataSource } from '../../datasource/sql/sql-datasource';
 
-const commentReducer = (comment) => ({
-  id: comment.id,
-  comment: comment.comment,
-  userId: comment.user_id,
-  createdAt: new Date(comment.created_at).toISOString(),
-});
+const commentReducer = (comment) => {
+  return {
+    id: comment.id,
+    comment: comment.comment,
+    user_id: comment.user_id,
+    createdAt: new Date(comment.created_at).toISOString(),
+  };
+};
 
 export class CommentSQLDataSource extends SQLDataSource {
   async getById(id) {
@@ -15,9 +17,9 @@ export class CommentSQLDataSource extends SQLDataSource {
 
   async getByPostId(post_id) {
     const query = this.db('comments').where({ post_id });
+    console.log(query.toString());
     const comments = await query;
-
-    return comments.map(commentReducer);
+    return comments.map((comment) => commentReducer(comment));
   }
 
   async create({ comment, postId, userId }) {
