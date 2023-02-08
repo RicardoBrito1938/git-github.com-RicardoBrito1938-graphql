@@ -16,7 +16,7 @@ export class SQLDataSource extends DataSource {
     this.cache = cache || new InMemoryLRUCache();
   }
 
-  async bachLoad(id) {
+  async batchLoad(id) {
     return this._loader.load(id);
   }
 

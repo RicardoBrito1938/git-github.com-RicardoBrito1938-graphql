@@ -4,6 +4,8 @@ import { context } from './graphql/context';
 import { PostApi } from './graphql/schema/post/datasources';
 import { UsersApi } from './graphql/schema/user/datasources';
 import { LoginApi } from './graphql/schema/login/datasources';
+import { CommentSQLDataSource } from './graphql/schema/comment/datasources';
+import { knex } from './knex';
 
 const server = new ApolloServer({
   typeDefs,
@@ -14,6 +16,7 @@ const server = new ApolloServer({
       postApi: new PostApi(),
       userApi: new UsersApi(),
       loginApi: new LoginApi(),
+      commentDb: new CommentSQLDataSource(knex),
     };
   },
   uploads: false,
