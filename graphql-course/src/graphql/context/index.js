@@ -55,11 +55,12 @@ const authorizeUserWithBearerToken = async (req) => {
   }
 };
 
-export const context = async ({ req, res }) => {
-  let loggedUserId = await authorizeUserWithBearerToken(req);
+export const context = async ({ req, res, connection }) => {
+  const reqOrConnection = req || connection?.context?.req;
+  let loggedUserId = await authorizeUserWithBearerToken(reqOrConnection);
 
   if (!loggedUserId) {
-    if (req.headers.cookie) {
+    if (reqOrConnection?.headers?.cookie) {
       const { jwtToken } = cookieParser(req.headers.cookie);
 
       loggedUserId = await verifyJwtToken(jwtToken);

@@ -24,7 +24,9 @@ const user = async ({ user_id }, _, { dataSources }) => {
 };
 
 const createdComment = {
-  subscribe: () => pubsub.asyncIterator(CREATED_COMMENT),
+  subscribe: () => {
+    return pubsub.asyncIterator(CREATED_COMMENT);
+  },
 };
 
 export const commentResolvers = {
