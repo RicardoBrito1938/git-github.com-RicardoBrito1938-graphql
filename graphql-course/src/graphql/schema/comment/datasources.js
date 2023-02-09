@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable space-before-function-paren */
 import { SQLDataSource } from '../../datasource/sql/sql-datasource';
+import { CREATED_COMMENT, pubsub } from './resolvers';
 
 const commentReducer = (comment) => {
   return {
@@ -42,12 +43,15 @@ export class CommentSQLDataSource extends SQLDataSource {
     }
 
     const created = await this.db(this.tableName).insert(partialComment);
-
-    return {
+    const commentCreated = {
       id: created[0],
       createdAt: new Date().toISOString(),
       ...partialComment,
     };
+
+    pubsub.publish(CREATED_COMMENT, { createdComment: commentCreated });
+
+    return commentCreated;
   }
 
   async batchLoaderCallback(post_ids) {

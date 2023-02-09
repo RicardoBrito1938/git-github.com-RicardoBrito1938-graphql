@@ -17,6 +17,9 @@ const rootTypeDefs = gql`
   type Mutation {
     _empty: Boolean
   }
+  type Subscription {
+    _empty: Boolean
+  }
 `;
 
 const rootResolvers = {
@@ -24,6 +27,9 @@ const rootResolvers = {
     _empty: () => true,
   },
   Mutation: {
+    _empty: () => true,
+  },
+  Subscription: {
     _empty: () => true,
   },
 };

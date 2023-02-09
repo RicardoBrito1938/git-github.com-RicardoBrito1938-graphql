@@ -1,5 +1,9 @@
 /* eslint-disable camelcase */
 import { checkIsLoggedIn } from '../login/utils/login-functions';
+import { PubSub } from 'graphql-subscriptions';
+
+export const pubsub = new PubSub();
+export const CREATED_COMMENT = 'CREATED_COMMENT';
 
 const createComment = async (_, { data }, { dataSources, loggedUserId }) => {
   checkIsLoggedIn(loggedUserId);
@@ -19,7 +23,14 @@ const user = async ({ user_id }, _, { dataSources }) => {
   return user;
 };
 
+const createdComment = {
+  subscribe: () => pubsub.asyncIterator(CREATED_COMMENT),
+};
+
 export const commentResolvers = {
   Mutation: { createComment },
+  Subscription: {
+    createdComment,
+  },
   Comment: { user },
 };
