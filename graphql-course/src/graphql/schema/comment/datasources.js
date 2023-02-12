@@ -29,7 +29,7 @@ export class CommentSQLDataSource extends SQLDataSource {
     return comments.map((comment) => commentReducer(comment));
   }
 
-  async create({ comment, postId, userId }) {
+  async create({ comment, postId, userId, postOwner = null }) {
     const partialComment = {
       user_id: userId,
       post_id: postId,
@@ -49,7 +49,10 @@ export class CommentSQLDataSource extends SQLDataSource {
       ...partialComment,
     };
 
-    pubsub.publish(CREATED_COMMENT, { createdComment: commentCreated });
+    pubsub.publish(CREATED_COMMENT, {
+      createdComment: commentCreated,
+      postOwner,
+    });
 
     return commentCreated;
   }
